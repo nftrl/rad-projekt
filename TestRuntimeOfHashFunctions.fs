@@ -25,4 +25,4 @@ printfn "multiply mod prime"
 // b,c r.v.s less than 2^89 - 1
 let b = 9163203I
 let c = 476198I
-printFunc stream (multiplyModPrime (bigint b) c l)
+printFunc stream (multiplyModPrime b c l)
