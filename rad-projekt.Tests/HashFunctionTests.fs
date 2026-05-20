@@ -8,9 +8,9 @@ let ``multiplyShift giver samme resultat som naiv løsning`` () =
     let a = 123UL
     let l = 8
     let h = multiplyShift a l
-    let naiv x = (a * x) % (1UL <<< l)
-
-    Assert.Equal(naiv 42UL, h 42UL)
+    let naiv x = (a * x) >>> (64 - l)
+    printfn "%A %A" (naiv 22UL) (h 22UL)
+    Assert.Equal(naiv 22UL, h 22UL)
     Assert.Equal(naiv 0UL, h 0UL)
 
 

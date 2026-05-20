@@ -11,9 +11,15 @@ let rnd = RandomSource("RandomNumbers.data")
 let a = rnd.NextUInt64() ||| 1UL
 let h_multiplyShift = multiplyShift a 5
 
-// a and b must be <p. this code COULD give a=p or b=p but highly unlikely
-let a_big = rnd.NextBigInt128() &&& ((1I <<< 89) - 1I)
-let b = rnd.NextBigInt128() &&& ((1I <<< 89) - 1I)  
+// a and b must be <p.
+let p = ((1I <<< 89) - 1I)
+let mutable finished = false
+let mutable a_big = 0I
+let mutable b     = 0I
+while (not finished) do
+    a_big <- rnd.NextBigInt128() &&& p
+    b <- rnd.NextBigInt128() &&& p  
+    if (a_big<p) && (b<p) then finished <- true
 
 let h_multiplyModPrime = multiplyModPrime a_big b 32
 
