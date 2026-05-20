@@ -1,15 +1,21 @@
 ﻿open HashFunctions
 open StreamGenerator
+open RandomBytes
 
-printfn "RAD Rules"
 
 let stream = createStream 10 10
 
-let a = 9163208UL
-let b = 476198I
+let rnd = RandomSource("RandomNumbers.data")
 
+// a must be odd
+let a = rnd.NextUInt64() ||| 1UL
 let h_multiplyShift = multiplyShift a 5
-let h_multiplyModPrime = multiplyModPrime (bigint a) b 32
+
+// a and b must be <p. this code COULD give a=p or b=p but highly unlikely
+let a_big = rnd.NextBigInt128() &&& ((1I <<< 89) - 1I)
+let b = rnd.NextBigInt128() &&& ((1I <<< 89) - 1I)  
+
+let h_multiplyModPrime = multiplyModPrime a_big b 32
 
 printfn "stream:"
 for (x, dx) in stream do

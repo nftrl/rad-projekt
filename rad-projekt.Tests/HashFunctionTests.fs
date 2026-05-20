@@ -11,8 +11,8 @@ let ``multiplyShift giver samme resultat som naiv løsning`` () =
     let naiv x = (a * x) % (1UL <<< l)
 
     Assert.Equal(naiv 42UL, h 42UL)
-    Assert.Equal(naiv 0UL, h 1UL)
-    printfn "multiplyshift test passed"
+    Assert.Equal(naiv 0UL, h 0UL)
+
 
 [<Fact>]
 let ``multiplyModPrime giver samme resultat som naiv løsning`` () =
@@ -20,8 +20,7 @@ let ``multiplyModPrime giver samme resultat som naiv løsning`` () =
     let b = 351I
     let l = 8
     let h = multiplyModPrime a b l
-    let naiv x = ((a * x + b) % ((1I <<< 89) - 1I)) % (2I ** l)
+    let naiv x = ((a * x + b) % (bigint.Pow(2I, 89) - 1I)) % (bigint.Pow(2I, l))
 
-    Assert.Equal(naiv 42I, h 42UL)
-    Assert.Equal(naiv 0I, h 0UL)
-    printfn "multiplyModPrime    test passed"
+    Assert.Equal(naiv 42I, (h 42UL))
+    Assert.Equal(naiv 0I,   (h 0UL))    
