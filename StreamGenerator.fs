@@ -14,18 +14,18 @@ let createStream (n : int) (l : int) : seq<uint64 * int> =
 
         // We demand that our random number has 30 zeros on the least
         // significant bits and then a one .
-        a <- (a ||| ((1UL <<< 31) - 1UL) ) ^^^ ((1UL <<< 30) - 1UL)
+        a <- (a ||| ((1UL <<< 31) - 1UL)) ^^^ ((1UL <<< 30) - 1UL)
 
         let mutable x = 0UL
         for i = 1 to (n/3) do
             x <- x + a
-            yield (x &&& (((1UL <<< l ) - 1UL) <<< 30), 1)
+            yield (x &&& (((1UL <<< l) - 1UL) <<< 30), 1)
 
         for i = 1 to ((n + 1)/3) do
             x <- x + a
-            yield ( x &&& (((1UL <<< l ) - 1UL) <<< 30), -1)
+            yield (x &&& (((1UL <<< l) - 1UL) <<< 30), -1)
 
         for i = 1 to (n + 2)/3 do
             x <- x + a
-            yield (x &&& (((1UL <<< l ) - 1UL) <<< 30), 1)
+            yield (x &&& (((1UL <<< l) - 1UL) <<< 30), 1)
     }
