@@ -16,15 +16,13 @@ printfn "Calculating sum(h(x_i)) for different h"
 // 0 < l < 64
 let l = 32
 
+printfn "multiply shift"
 // a odd r.v.
 let a = 12381UL
-
-printfn "multiply shift"
 printFunc stream (fun x -> x |> multiplyShift a l |> bigint)
 
+printfn "multiply mod prime"
 // b,c r.v.s less than 2^89 - 1
 let b = 9163203I
 let c = 476198I
-
-printfn "multiply mod prime"
 printFunc stream (multiplyModPrime (bigint b) c l)
