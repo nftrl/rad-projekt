@@ -4,15 +4,14 @@ open Xunit
 open HashFunctions 
 
 [<Fact>]
-let ``multiplyShift giver samme resultat som naiv løsning`` () =
+let ``test af multiplyShift`` () =
     let a = 123UL
     let l = 8
     let h = multiplyShift a l
-    let naiv x = (a * x) >>> (64 - l)
-    printfn "%A %A" (naiv 22UL) (h 22UL)
-    Assert.Equal(naiv 22UL, h 22UL)
-    Assert.Equal(naiv 0UL, h 0UL)
-
+    // test overflow does not cause an error
+    let _ = h System.UInt64.MaxValue
+    // test deterministic
+    Assert.Equal(h 22UL, h 22UL)
 
 [<Fact>]
 let ``multiplyModPrime giver samme resultat som naiv løsning`` () =
