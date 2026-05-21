@@ -1,5 +1,7 @@
 module HashFunctions
 
+open RandomBytes
+
 let multiplyShift (a : uint64) (l : int) (x : uint64) : uint64 =
     // assumes:
     //   a uneven
@@ -18,3 +20,20 @@ let multiplyModPrime (a : bigint) (b : bigint) (l : int) (x : uint64) : bigint =
       |> fun y -> (y &&& p) + (y >>> q)
       |> fun y -> if y >= p then y - p else y // (ax + b) mod p
       |> fun y -> y &&& (2I ** l - 1I)        // (ax + b) mod p mod m
+
+let randomMultiplyShift (rnd : RandomSource) (l : int): (uint64 -> uint64) =
+    // a must be odd
+    let a = rnd.NextUInt64() ||| 1UL
+    multiplyShift a l
+
+let randomMultiplyModPrime (rnd: RandomSource) (l: int): (uint64 -> bigint) =
+    // a and b must be <p.
+    let p = ((1I <<< 89) - 1I)
+    let mutable finished = false
+    let mutable a = 0I
+    let mutable b     = 0I
+    while (not finished) do
+        a <- rnd.NextBigInt128() &&& p
+        b <- rnd.NextBigInt128() &&& p  
+        if (a<p) && (b<p) then finished <- true
+    multiplyModPrime a b l

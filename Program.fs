@@ -7,21 +7,9 @@ let stream = createStream 10 10
 
 let rnd = RandomSource("RandomNumbers.data")
 
-// a must be odd
-let a = rnd.NextUInt64() ||| 1UL
-let h_multiplyShift = multiplyShift a 5
+let h_multiplyShift = randomMultiplyShift rnd 5
 
-// a and b must be <p.
-let p = ((1I <<< 89) - 1I)
-let mutable finished = false
-let mutable a_big = 0I
-let mutable b     = 0I
-while (not finished) do
-    a_big <- rnd.NextBigInt128() &&& p
-    b <- rnd.NextBigInt128() &&& p  
-    if (a_big<p) && (b<p) then finished <- true
-
-let h_multiplyModPrime = multiplyModPrime a_big b 32
+let h_multiplyModPrime = randomMultiplyModPrime rnd 32
 
 printfn "stream:"
 for (x, dx) in stream do
