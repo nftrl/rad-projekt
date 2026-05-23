@@ -11,6 +11,7 @@
     <Compile Include="HashFunctions.fs" />
     <Compile Include="HashTable.fs" />	
     <Compile Include="StreamGenerator.fs" />
+    <Compile Include="TestRuntimeOfHashFunctions.fs" />
     <Compile Include="CountSketch.fs" />
     <Compile Include="Program.fs" />
   </ItemGroup>
