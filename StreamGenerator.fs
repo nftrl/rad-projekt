@@ -1,6 +1,7 @@
 module StreamGenerator
 // Code from project description
-
+// n: number of elements in the stream
+// l: there will be 2**l  different keys
 let createStream (n : int) (l : int) : seq<uint64 * int> =
     seq {
         // We generate a random uint64 number.

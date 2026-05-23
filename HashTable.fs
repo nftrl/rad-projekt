@@ -25,8 +25,8 @@ type HashTable(h: HashFunction, l: int) =
             | [] -> [(x, d)]
         array.[index] <- update array.[index]
 
-    member this.GetSquareSum () =
-        this.GetArray |> Array.fold (fun acc x -> x |> List.fold (fun acc2 (_, v) -> acc2 + v*v) acc) 0
+    member this.GetSquareSum () : uint64 =
+        this.GetArray |> Array.fold (fun acc x -> x |> List.fold (fun acc2 (_, v) -> acc2 + uint64(v*v)) acc) 0UL
 
 
     member this.Item
