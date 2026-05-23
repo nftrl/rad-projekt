@@ -12,6 +12,7 @@
     <Compile Include="HashTable.fs" />	
     <Compile Include="StreamGenerator.fs" />
     <Compile Include="TestRuntimeOfHashFunctions.fs" />
+    <Compile Include="CalculateSquareSums.fs" />
     <Compile Include="CountSketch.fs" />
     <Compile Include="Program.fs" />
   </ItemGroup>

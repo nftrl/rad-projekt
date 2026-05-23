@@ -2,6 +2,7 @@
 open StreamGenerator
 open RandomBytes
 open TestRuntimeOfHashFunctions
+open CalculateSquaresums
 
 let simpleExample() =
     let stream = createStream 10 10
@@ -27,8 +28,10 @@ let simpleExample() =
 let args = System.Environment.GetCommandLineArgs()
 let options = [| 
     "Simple Example", simpleExample;
-    "Test Runtime of Hash Functions", TestRuntime
+    "Test Runtime of Hash Functions", TestRuntime;
+    "Exact calculation and timing of square sums", CalculateSquaresums
 |]
+
 if Array.length args < 2 then
     printfn "No command line argument given."
     printfn "Run with 'dotnet run [option]'. The options are"
