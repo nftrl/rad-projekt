@@ -5,7 +5,7 @@ open StreamGenerator
 open System.Diagnostics
 
 let TestRuntime() =
-    let n = 10000
+    let n = 1000000
     let stream = createStream n 1
 
     let printFunc stream (h : uint64 -> bigint) =
@@ -16,6 +16,7 @@ let TestRuntime() =
             |> printfn "%A"
 
     printfn "Calculating sum(h(x_i)) for different h"
+    printfn "Length of stream %i" n
 
     // 0 < l < 64
     let l = 32

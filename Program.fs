@@ -31,7 +31,7 @@ let options = [|
 |]
 if Array.length args < 2 then
     printfn "No command line argument given."
-    printfn "Run with 'dotnet run [option]. The options are"
+    printfn "Run with 'dotnet run [option]'. The options are"
     for i in 0 .. Array.length options - 1 do
         printfn "%i: %A" i (fst options[i])
 else
