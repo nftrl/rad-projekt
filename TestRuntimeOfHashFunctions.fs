@@ -2,6 +2,7 @@ module TestRuntimeOfHashFunctions
 
 open HashFunctions
 open StreamGenerator
+open RandomBytes
 open System.Diagnostics
 
 let TestRuntime() =
@@ -37,5 +38,17 @@ let TestRuntime() =
     timer.Reset()
     timer.Start()
     printFunc stream (multiplyModPrime b c l)
+    timer.Stop()
+    printfn "Time elapsed %A ms" timer.ElapsedMilliseconds
+
+    printfn "4-universal g"
+    let a0 = 123I
+    let a1 = 456I
+    let a2 = 789I
+    let a3 = 999I
+
+    timer.Reset()
+    timer.Start()
+    printFunc stream (g a0 a1 a2 a3)
     timer.Stop()
     printfn "Time elapsed %A ms" timer.ElapsedMilliseconds
