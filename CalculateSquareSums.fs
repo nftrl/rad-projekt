@@ -20,8 +20,8 @@ let getTimeAndSqSum (h: HashFunction) (n: int) (l: int) : (int64 * uint64) =
 
 
 let CalculateSquaresums() =
-    let n = 2<<<20   
-    let max_l = 20
+    let n = 1<<<25
+    let max_l = 25
     let rnd = RandomSource("RandomNumbers.data")
 
     printfn "n=%d" n

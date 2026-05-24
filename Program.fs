@@ -32,6 +32,10 @@ let options = [|
     "Exact calculation and timing of square sums", CalculateSquaresums
 |]
 
+printfn "==========================="
+printfn "RAD 2026 - hold 3, gruppe 1"
+printfn "==========================="
+
 if Array.length args < 2 then
     printfn "No command line argument given."
     printfn "Run with 'dotnet run [option]'. The options are"
