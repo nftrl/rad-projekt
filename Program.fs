@@ -3,6 +3,7 @@ open StreamGenerator
 open RandomBytes
 open TestRuntimeOfHashFunctions
 open CalculateSquaresums
+open CountSketch
 
 let simpleExample() =
     let stream = createStream 10 10
@@ -29,7 +30,9 @@ let args = System.Environment.GetCommandLineArgs()
 let options = [| 
     "Simple Example", simpleExample;
     "Test Runtime of Hash Functions", TestRuntime;
-    "Exact calculation and timing of square sums", CalculateSquaresums
+    "Exact calculation and timing of square sums", CalculateSquaresums;
+    "Run count sketch (unfinished, hash functions are not right yet)", runCountSketch
+
 |]
 
 printfn "==========================="
