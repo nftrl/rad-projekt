@@ -40,8 +40,9 @@ let TestRuntime() =
     printFunc stream (multiplyModPrime b c l)
     timer.Stop()
     printfn "Time elapsed %A ms" timer.ElapsedMilliseconds
-
+    printfn "------------------------"
     printfn "4-universal g"
+    printfn "------------------------"
     let a0 = 123I
     let a1 = 456I
     let a2 = 789I

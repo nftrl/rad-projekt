@@ -40,6 +40,8 @@ let runCountSketch () =
     printfn "Exact result:            %A" S
 open HashFunctions
 
+// Opgave 5
+
 let MakckCoutSkt (t: int)(g: uint64 -> bigint): (uint64 -> uint64) * (uint64 -> int)=
 
     if t < 0 || t > 64 then
@@ -59,4 +61,30 @@ let MakckCoutSkt (t: int)(g: uint64 -> bigint): (uint64 -> uint64) * (uint64 -> 
 
     
 
+// Opgave 6. Vi bygge count-Sketch arrayet c ud fra streem
+let buildCountSketch (t: int) (h: uint64 -> uint64) (s: uint64 -> int) (stream: seq<uint64 * int>): bigint array= 
+    if t < 0 || t > 30 then 
+        invalidArg "t" "t should be between 0 and 30"
+    
+    let m = 1 <<< t
+
+
+    // C[0], ..., C[m-1] starter på 0
+    let C = Array.create m 0I
+
+    // den løbe igennem streem
+    for (x, d) in stream do
+        let index = int (h x)
+        let sign = s x
+
+        // C[h(x)] <- C[h(x)] + s(x) * d
+        C[index] <- C[index] + bigint (sign *d)
+
+    C
+
+
+// Beregner estimatet X = sum_y C[y]^2
+let estimateSecondMoment (c: bigint array) : bigint =
+    c 
+    |> Array.sumBy (fun cy -> cy * cy)
 

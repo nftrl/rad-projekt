@@ -36,9 +36,11 @@ for x in testKeys do
     if gx < 0I || gx >= p89 then
         failwithf "Fejl i g: g(%A) = %A, men skal være i [0, p-1]" x gx
 
+printfn "--------------------------------"
 printfn "Opgave 4 fixed g test OK"
 printfn ""
 printfn "Opgave 4 test: random 4-universal g"
+printfn "---------------------------------"
 
 let rnd = RandomSource("RandomNumbers.data")
 
@@ -54,14 +56,9 @@ for x in testKeys do
 
 printfn "Opgave 4 randomForG test OK"
 
-
+printfn "------------------------------"
 printfn "Test af Opgave 5"
-
-// // RandomSource ligger i RandomBytes.fs
-// let rnd = RandomSource("RandomNumbers.data")
-
-// // Fra Opgave 4: laver en tilfældig g-funktion
-// let myG = randomForG rnd
+printfn "------------------------------"
 
 // Opgave 5
 // t = 5 betyder m = 2^5 = 32
@@ -69,11 +66,7 @@ let t = 5
 let mBig = 1I <<< t
 let m = 1UL <<< t
 
-// Brug navnet på din Opgave 5-funktion.
-// Hvis din funktion hedder MakckCoutSkt, brug denne:
 let h, s = MakckCoutSkt t myG
-
-
 
 for x in testKeys do
     let gx = myG x
@@ -101,3 +94,6 @@ for x in testKeys do
         failwithf "Fejl: s(%A) = %A. s(x) skal være 1 eller -1." x sx
 
 printfn "Opgave 5 test OK"
+
+printfn ""
+printfn "Opgave 6 test: buildCountSketch and estimateSecondMoment"
