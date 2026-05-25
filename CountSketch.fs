@@ -58,9 +58,14 @@ let MakckCoutSkt (t: int)(g: uint64 -> bigint): (uint64 -> uint64) * (uint64 -> 
         // s(x) = 1 - 2 * floor(g(x) / 2^88)
         1-2 * int topBit
     (h, s)
-
     
+// t, som bestemmer størrelsen af arrayet.
 
+// h, som bestemmer hvilken counter vi bruger.
+
+// s, som bestemmer plus eller minus.
+
+// stream, som er en sekvens af par (x, d) 
 // Opgave 6. Vi bygge count-Sketch arrayet c ud fra streem
 let buildCountSketch (t: int) (h: uint64 -> uint64) (s: uint64 -> int) (stream: seq<uint64 * int>): bigint array= 
     if t < 0 || t > 30 then 

@@ -95,5 +95,49 @@ for x in testKeys do
 
 printfn "Opgave 5 test OK"
 
-printfn ""
+printfn "---------------------------------"
 printfn "Opgave 6 test: buildCountSketch and estimateSecondMoment"
+printfn "---------------------------------"
+
+// Lille stream, så vi kan regne resultatet i hånden
+let smallStream =
+    [
+        (10UL, 1)
+        (20UL, 1)
+        (10UL, -1)
+        (30UL, 1)
+    ]
+
+// t = 2 betyder m = 2^2 = 4 counters
+let t6 = 2
+
+// Manuel h-funktion til test
+// h(x) = x mod 4
+let hManual (x: uint64) : uint64 =
+    x % 4UL
+
+// Manuel s-funktion til test
+// Vi bestemmer selv fortegnet for at kunne regne det i hånden
+let sManual (x: uint64) : int =
+    if x = 10UL then -1
+    else 1
+
+let C6 = buildCountSketch t6 hManual sManual smallStream
+
+printfn "C = %A" C6
+
+let X6 = estimateSecondMoment C6
+
+printfn "X = %A" X6
+
+
+let expectedC6 = [| 1I; 0I; 1I; 0I |]
+let expectedX6 = 2I
+
+if C6 <> expectedC6 then
+    failwithf "Fejl i C. Fik %A, men forventede %A" C6 expectedC6
+
+if X6 <> expectedX6 then
+    failwithf "Fejl i X. Fik %A, men forventede %A" X6 expectedX6
+
+printfn "Opgave 6 manual test OK"
