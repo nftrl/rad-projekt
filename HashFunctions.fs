@@ -37,3 +37,52 @@ let randomMultiplyModPrime (rnd: RandomSource) (l: int): (uint64 -> bigint) =
         b <- rnd.NextBigInt128() &&& p  
         if (a<p) && (b<p) then finished <- true
     multiplyModPrime a b l
+
+
+// Opgave 4: 4-universal hashfunktion
+
+let p89 = (1I <<< 89) - 1I
+// p = 2^89 - 1
+
+let modP89 (y: bigint) =
+    // Beregner y mod p89
+    let r = y % p89
+    if r < 0I then
+        r + p89
+    else
+        r
+
+let g (a0: bigint) (a1: bigint) (a2: bigint) (a3: bigint) (x: uint64) : bigint =
+    // Beregner:
+    // g(x) = a0 + a1*x + a2*x^2 + a3*x^3 mod p
+
+    let xb = bigint x
+
+    // Horner-form:
+    // (((a3*x + a2)*x + a1)*x + a0) mod p
+    let mutable h = a3
+
+    h <- modP89 (h * xb + a2)
+    h <- modP89 (h * xb + a1)
+    h <- modP89 (h * xb + a0)
+
+    h
+
+let randomForG (rnd: RandomSource) : (uint64 -> bigint) =
+    // Laver én tilfældig g-hashfunktion
+
+    let randomCoef () =
+        // Laver ét tilfældigt tal i [0, p-1]
+        let mutable a = p89
+
+        while a >= p89 do
+            a <- rnd.NextBigInt128() &&& p89
+
+        a
+
+    let a0 = randomCoef()
+    let a1 = randomCoef()
+    let a2 = randomCoef()
+    let a3 = randomCoef()
+
+    g a0 a1 a2 a3
