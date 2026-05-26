@@ -23,10 +23,10 @@ let hashTableTestMultiplyShift() =
     // Test GetSquareSum
     let table2 = HashTable(h, 10)
     let stream = createStream 100 10
-    let mutable sqSum = 0
+    let mutable sqSum = 0UL
     for (x, dx) in stream do
         table2.Increment (uint64 x) (dx)
-        sqSum <- sqSum + dx*dx
+        sqSum <- sqSum + uint64(dx*dx)
     Assert.Equal(sqSum, table2.GetSquareSum())
 
 
@@ -48,8 +48,8 @@ let hashTableTestMultiplyModPrime() =
     // Test GetSquareSum
     let table2 = HashTable(h, 10)
     let stream = createStream 100 10
-    let mutable sqSum = 0
+    let mutable sqSum = 0UL
     for (x, dx) in stream do
         table2.Increment (uint64 x) (dx)
-        sqSum <- sqSum + dx*dx
+        sqSum <- sqSum + uint64(dx*dx)
     Assert.Equal(sqSum, table2.GetSquareSum())
