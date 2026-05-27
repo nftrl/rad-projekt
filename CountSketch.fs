@@ -30,7 +30,7 @@ let getExactSqSum (stream: seq<uint64 * int>) (h: HashFunction) (n: int) (l: int
 
 // Opgave 5
 
-let MakckCoutSkt (t: int)(g: uint64 -> bigint): (uint64 -> uint64) * (uint64 -> int)=
+let hashFunctionsForCountSketch (t: int)(g: uint64 -> bigint): (uint64 -> uint64) * (uint64 -> int)=
 
     if t < 0 || t > 64 then
         invalidArg "t" "t should be between 0 and 64"
@@ -92,7 +92,7 @@ let runCountSketch () =
     let rnd = RandomSource("RandomNumbers.data")
     
     let g = randomForG rnd
-    let (h,s) = MakckCoutSkt t g
+    let (h,s) = hashFunctionsForCountSketch t g
     let c = buildCountSketch t h s stream
     let X = estimateSecondMoment c
     printfn "Result from CountSketch: %A" X

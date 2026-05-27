@@ -66,7 +66,7 @@ let t = 5
 let mBig = 1I <<< t
 let m = 1UL <<< t
 
-let h, s = MakckCoutSkt t myG
+let h, s = hashFunctionsForCountSketch t myG
 
 for x in testKeys do
     let gx = myG x
