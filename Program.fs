@@ -31,7 +31,7 @@ let options = [|
     "Simple Example", simpleExample;
     "Test Runtime of Hash Functions", TestRuntime;
     "Exact calculation and timing of square sums", CalculateSquaresums;
-    "Run count sketch (unfinished, hash functions are not right yet)", runCountSketch
+    "Run count sketch", runCountSketch
 
 |]
 
