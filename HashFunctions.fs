@@ -63,7 +63,7 @@ let g (a0: bigint) (a1: bigint) (a2: bigint) (a3: bigint) (x: uint64) : bigint =
     // (((a3*x + a2)*x + a1)*x + a0) mod p
     let mutable y = a3
     for a in [a2; a1; a0] do
-        y <- y * x + a
+        y <- y * xb + a
         y <- (y &&& p89) + (y >>> 89)
 
     if y >= p89 then y - p89 else y
