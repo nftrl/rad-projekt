@@ -24,10 +24,10 @@ let hashFunctionsForCountSketch (t: int) (g: uint64 -> bigint): (uint64 -> uint6
     let m = 1I <<< t
     
     let h (x: uint64): uint64 =
-        g x &&& (m - 1) // h(x) = g(x) mod m
+        uint64 (g x &&& (m - 1)) // h(x) = g(x) mod m
         
     let s (x: uint64): int =
-        1 - 2 * (g x >>> 88) // s(x) = 1 - 2 * floor(g(x) / 2^88)
+        int (1 - 2 * (g x >>> 88)) // s(x) = 1 - 2 * floor(g(x) / 2^88)
         
     (h, s)
     
