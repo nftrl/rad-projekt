@@ -5,7 +5,7 @@ open CountSketch
 open StreamGenerator
 open RandomBytes
 
-let runExperiment: unit =
+let runExperiment (): unit =
     let rnd = RandomSource("RandomNumbers.data")
     let n = 1 <<< 20
     let l = 20

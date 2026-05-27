@@ -4,6 +4,7 @@ open RandomBytes
 open TestRuntimeOfHashFunctions
 open CalculateSquaresums
 open CountSketch
+open CountSketchExperiment
 
 let simpleExample() =
     let stream = createStream 10 10
@@ -31,7 +32,8 @@ let options = [|
     "Simple Example", simpleExample;
     "Test Runtime of Hash Functions", TestRuntime;
     "Exact calculation and timing of square sums", CalculateSquaresums;
-    "Run count sketch", runCountSketch
+    "Run count sketch (small example)", runCountSketch;
+    "Count sketch experiment", runExperiment
 
 |]
 

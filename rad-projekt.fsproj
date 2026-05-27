@@ -14,6 +14,7 @@
     <Compile Include="TestRuntimeOfHashFunctions.fs" />
     <Compile Include="CalculateSquareSums.fs" />
     <Compile Include="CountSketch.fs" />
+    <Compile Include="CountSketchExperiment.fs" />
     <Compile Include="Program.fs" />
   </ItemGroup>
 
