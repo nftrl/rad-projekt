@@ -5,18 +5,6 @@ open HashFunctions
 open HashTable
 open RandomBytes
 
-
-// let getSketch (stream: seq<uint64 * int>) (m: int) = 
-//     // NOT the right hash functions !!!!!!
-//     let h = fun x -> x % (uint64 m)
-//     let s = fun x -> 2*((int x) % 2) - 1
-//     let C : int64 [] = Array.zeroCreate m
-//     let mutable index = 0
-//     for (x, dx) in stream do
-//         index <- int (h x)
-//         C[index] <- C[index] + int64 ((s x) * dx)
-//     C |> Array.fold (fun acc x -> acc + x*x) 0L
-
 let getExactSqSum (stream: seq<uint64 * int>) (h: HashFunction) (n: int) (l: int) : uint64 =
     let table = HashTable(h, l)
     let stream = createStream n l
