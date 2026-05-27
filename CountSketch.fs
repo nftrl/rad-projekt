@@ -5,9 +5,8 @@ open HashFunctions
 open HashTable
 open RandomBytes
 
-let getExactSqSum (stream: seq<uint64 * int>) (h: HashFunction) (n: int) (l: int) : uint64 =
+let getExactSqSum (stream: seq<uint64 * int>) (h: HashFunction) (l: int) : uint64 =
     let table = HashTable(h, l)
-    let stream = createStream n l
     for (x, dx) in stream do
         table.Increment (uint64 x) (dx)
 
