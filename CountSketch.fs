@@ -14,8 +14,6 @@ let getExactSqSum (stream: seq<uint64 * int>) (h: HashFunction) (n: int) (l: int
     table.GetSquareSum()
 
 
-
-
 // Opgave 5
 let hashFunctionsForCountSketch (t: int) (g: uint64 -> bigint): (uint64 -> uint64) * (uint64 -> int) =
     if t < 0 || t > 64 then
@@ -24,10 +22,10 @@ let hashFunctionsForCountSketch (t: int) (g: uint64 -> bigint): (uint64 -> uint6
     let m = 1I <<< t
     
     let h (x: uint64): uint64 =
-        uint64 (g x &&& (m - 1)) // h(x) = g(x) mod m
+        uint64 (g x &&& (m - 1I)) // h(x) = g(x) mod m
         
     let s (x: uint64): int =
-        int (1 - 2 * (g x >>> 88)) // s(x) = 1 - 2 * floor(g(x) / 2^88)
+        1 - 2 * int (g x >>> 88) // s(x) = 1 - 2 * floor(g(x) / 2^88)
         
     (h, s)
     
