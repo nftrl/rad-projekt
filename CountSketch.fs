@@ -79,5 +79,5 @@ let runCountSketch () =
     printfn "Result from CountSketch: %A" X
 
     let h = randomMultiplyShift rnd l
-    let S = getExactSqSum stream h n l
+    let S = getExactSqSum stream h l
     printfn "Exact result:            %A" S
