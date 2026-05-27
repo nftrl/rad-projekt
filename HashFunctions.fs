@@ -52,6 +52,7 @@ let modP89 (y: bigint) =
     else
         r
 
+
 let g (a0: bigint) (a1: bigint) (a2: bigint) (a3: bigint) (x: uint64) : bigint =
     // Beregner:
     // g(x) = a0 + a1*x + a2*x^2 + a3*x^3 mod p
@@ -60,13 +61,13 @@ let g (a0: bigint) (a1: bigint) (a2: bigint) (a3: bigint) (x: uint64) : bigint =
 
     // Horner-form:
     // (((a3*x + a2)*x + a1)*x + a0) mod p
-    let mutable h = a3
+    let mutable y = a3
+    for a in [a2; a1; a0] do
+        y <- y * x + a
+        y <- (y &&& p89) + (y >>> 89)
 
-    h <- modP89 (h * xb + a2)
-    h <- modP89 (h * xb + a1)
-    h <- modP89 (h * xb + a0)
+    if y >= p89 then y - p89 else y
 
-    h
 
 let randomForG (rnd: RandomSource) : (uint64 -> bigint) =
     // Laver én tilfældig g-hashfunktion
