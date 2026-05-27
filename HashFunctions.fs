@@ -31,7 +31,7 @@ let randomMultiplyModPrime (rnd: RandomSource) (l: int): (uint64 -> bigint) =
     let p = ((1I <<< 89) - 1I)
     let mutable finished = false
     let mutable a = 0I
-    let mutable b     = 0I
+    let mutable b = 0I
     while (not finished) do
         a <- rnd.NextBigInt128() &&& p
         b <- rnd.NextBigInt128() &&& p  

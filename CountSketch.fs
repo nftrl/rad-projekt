@@ -38,7 +38,7 @@ let runCountSketch () =
 
     let S = getExactSqSum stream h n l
     printfn "Exact result:            %A" S
-open HashFunctions
+
 
 // Opgave 5
 
