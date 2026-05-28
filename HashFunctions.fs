@@ -44,15 +44,6 @@ let randomMultiplyModPrime (rnd: RandomSource) (l: int): (uint64 -> bigint) =
 let p89 = (1I <<< 89) - 1I
 // p = 2^89 - 1
 
-let modP89 (y: bigint) =
-    // Beregner y mod p89
-    let r = y % p89
-    if r < 0I then
-        r + p89
-    else
-        r
-
-
 let g (a0: bigint) (a1: bigint) (a2: bigint) (a3: bigint) (x: uint64) : bigint =
     // Beregner:
     // g(x) = a0 + a1*x + a2*x^2 + a3*x^3 mod p
