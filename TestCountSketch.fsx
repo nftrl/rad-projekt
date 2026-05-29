@@ -1,12 +1,14 @@
 #load "RandomBytes.fs"
 #load "HashFunctions.fs"
-#load "CountSketch.fs"
 #load "StreamGenerator.fs"
+#load "HashTable.fs"
+#load "CountSketch.fs"
 
 open RandomBytes
 open HashFunctions
-open CountSketch
 open StreamGenerator
+open HashTable
+open CountSketch
 
 printfn ""
 printfn "Opgave 4 test: fixed 4-universal g"
@@ -141,3 +143,35 @@ if X6 <> expectedX6 then
     failwithf "Fejl i X. Fik %A, men forventede %A" X6 expectedX6
 
 printfn "Opgave 6 manual test OK"
+
+
+
+printfn "--------------"
+printfn "Opgave 7 test"
+printfn "--------------"
+
+let rnd7 = RandomSource("RandomNumbers.data")
+
+let n7 = 10000
+let l7 = 10
+let t7 = 8
+let runs7 = 100
+
+let S7, estimates7, sortedEstimates7, mse7 =
+    runCountSketchExp rnd7 n7 l7 t7 runs7
+
+let medians7 = medianTrick estimates7
+
+printfn "Exact S = %A" S7
+printfn "Number of estimates = %A" estimates7.Length
+printfn "First 10 sorted estimates = %A" (sortedEstimates7 |> Array.take 10)
+printfn "MSE = %A" mse7
+printfn "Medians = %A" medians7
+
+if estimates7.Length <> 100 then
+    failwithf "Fejl: Der skal være 100 estimater, men fik %A" estimates7.Length
+
+if medians7.Length <> 9 then
+    failwithf "Fejl: Der skal være 9 medianer, men fik %A" medians7.Length
+
+printfn "Opgave 7 test OK"
