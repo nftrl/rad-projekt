@@ -1,3 +1,5 @@
+#r "nuget: Plotly.NET, 4.2.0"
+
 #load "RandomBytes.fs"
 #load "HashFunctions.fs"
 #load "StreamGenerator.fs"
@@ -9,6 +11,8 @@ open HashFunctions
 open StreamGenerator
 open HashTable
 open CountSketch
+open Plotly.NET
+
 
 printfn ""
 printfn "Opgave 4 test: fixed 4-universal g"
@@ -150,11 +154,23 @@ printfn "--------------"
 printfn "Opgave 7 test"
 printfn "--------------"
 
+// let rnd7 = RandomSource("RandomNumbers.data")
+
+// let n7 = 10000
+// let l7 = 10
+// let t7 = 8
+// let runs7 = 100
+
+// let S7, estimates7, sortedEstimates7, mse7 =
+//     runCountSketchExp rnd7 n7 l7 t7 runs7
+
+// let medians7 = medianTrick estimates7
+
 let rnd7 = RandomSource("RandomNumbers.data")
 
-let n7 = 10000
-let l7 = 10
-let t7 = 8
+let n7 = 1 <<< 20
+let l7 = 20
+let t7 = 10
 let runs7 = 100
 
 let S7, estimates7, sortedEstimates7, mse7 =
@@ -175,3 +191,44 @@ if medians7.Length <> 9 then
     failwithf "Fejl: Der skal være 9 medianer, men fik %A" medians7.Length
 
 printfn "Opgave 7 test OK"
+
+printfn ""
+printfn "Laver plots for Opgave 7"
+
+// Plot 1: 100 sorterede estimater
+let xEst = [| 1 .. sortedEstimates7.Length |]
+let yEst = sortedEstimates7 |> Array.map float
+let sLineEst = Array.init sortedEstimates7.Length (fun _ -> float S7)
+
+let chartEstimates =
+    [
+        Chart.Point(xEst, yEst, Name = "Sorted estimates")
+        Chart.Line(xEst, sLineEst, Name = "Exact S")
+    ]
+    |> Chart.combine
+    |> Chart.withTitle "Opgave 7: 100 sorted Count-Sketch estimates"
+    |> Chart.withXAxisStyle("Index")
+    |> Chart.withYAxisStyle("Estimate")
+
+Chart.saveHtml "opgave7_estimates.html" chartEstimates
+
+// Plot 2: 9 medianer
+let xMed = [| 1 .. medians7.Length |]
+let yMed = medians7 |> Array.map float
+let sLineMed = Array.init medians7.Length (fun _ -> float S7)
+
+let chartMedians =
+    [
+        Chart.Point(xMed, yMed, Name = "Median estimates")
+        Chart.Line(xMed, sLineMed, Name = "Exact S")
+    ]
+    |> Chart.combine
+    |> Chart.withTitle "Opgave 7: 9 sorted medians"
+    |> Chart.withXAxisStyle("Index")
+    |> Chart.withYAxisStyle("Median estimate")
+
+Chart.saveHtml "opgave7_medians.html" chartMedians
+
+printfn "Plots saved:"
+printfn "  opgave7_estimates.html"
+printfn "  opgave7_medians.html"
