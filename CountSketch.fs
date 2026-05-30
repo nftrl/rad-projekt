@@ -4,6 +4,7 @@ open StreamGenerator
 open HashFunctions
 open HashTable
 open RandomBytes
+open System.Diagnostics
 
 let getExactSqSum (stream: seq<uint64 * int>) (h: HashFunction) (l: int) : uint64 =
     let table = HashTable(h, l)
@@ -139,6 +140,62 @@ let runCountSketchExp
         )
 
     (S, estimates, sortedEstimates, mse)
+
+let runCountSketchExpTimed
+    (rnd: RandomSource)
+    (n: int)
+    (l: int)
+    (t: int)
+    (runs: int)
+    (inputStream: seq<uint64 * int>)
+    : bigint * bigint array * bigint array * float * int64 * int64 =
+
+    // Samme stream bruges i alle forsøg
+    let stream = inputStream |> Seq.toArray
+
+    let timer = new Stopwatch()
+
+    // Eksakt værdi S med chaining
+    timer.Start()
+    let hExact = randomMultiplyShift rnd l
+    let S = squareSum l hExact stream
+    timer.Stop()
+    let timeExact = timer.ElapsedMilliseconds
+
+    timer.Reset()
+    timer.Start()
+    // Count-Sketch køres runs gange
+    let estimates =
+        [|
+            for i in 1 .. runs do
+                // Ny random g hver gang
+                let g = randomForG rnd
+
+                // h og s fra Opgave 5
+                let hCS, sCS = hashFunctionsForCountSketch t g
+
+                // C fra Opgave 6
+                let C = buildCountSketch t hCS sCS stream
+
+                // X = sum_y C[y]^2
+                let X = estimateSecondMoment C
+
+                yield X
+        |]
+    timer.Stop()
+    let timePerEstimate = timer.ElapsedMilliseconds / (int64 runs)
+
+    let sortedEstimates =
+        estimates |> Array.sort
+
+    let mse =
+        estimates
+        |> Array.averageBy (fun X ->
+            let diff = float (X - S)
+            diff * diff
+        )
+
+    (S, estimates, sortedEstimates, mse, timeExact, timePerEstimate)
 
 // Opgave 7: median-trick
 let medianTrick (estimates: bigint array) : bigint array =

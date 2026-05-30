@@ -33,8 +33,8 @@ let options = [|
     "Test Runtime of Hash Functions", TestRuntime;
     "Exact calculation and timing of square sums", CalculateSquaresums;
     "Run count sketch (small example)", runCountSketch;
-    "Count sketch experiment", runExperiment
-
+    "Count sketch experiment", runExperiment;
+    "Count sketch with timing", runExperimentsTimed
 |]
 
 printfn "==========================="
