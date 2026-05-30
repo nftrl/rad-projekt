@@ -87,9 +87,9 @@ let makePlots
 let runExperimentsTimed (): unit =
     let rnd = RandomSource("RandomNumbers.data")
     let n = 1 <<< 20
-    let l = 20
+    let l = 20                             
     let t_values = [5; 10; 15]
-    let runs = 100 
+    let runs = 100
     let stream = createStream n l
     for t in t_values do
         printfn ""
@@ -97,7 +97,7 @@ let runExperimentsTimed (): unit =
         printfn "Running count sketch with t=%A" t    
         let (S, estimates, sortedEstimates, mse, timeExact, timePerEstimate) =
             runCountSketchExpTimed rnd n l t runs stream
-        let medians = medianTrick estimates
+
         let theoretical_variance = 2I*S*S/(1I<<<t)
         let mean_estimate = (estimates |> Array.sum) / (bigint runs)
 
@@ -108,6 +108,8 @@ let runExperimentsTimed (): unit =
         printfn "MSE = %A" mse
         printfn "Theoretical variance 2S²/m = %A" theoretical_variance
         printfn "Mean of all estimates = %A" mean_estimate
+
+        let medians = medianTrick estimates
         printfn "Medians = %A" medians
         makePlots medians estimates sortedEstimates t S
 

@@ -168,6 +168,7 @@ let runCountSketchExpTimed
     let estimates =
         [|
             for i in 1 .. runs do
+                if i % 10 = 0 then printf "."
                 // Ny random g hver gang
                 let g = randomForG rnd
 
